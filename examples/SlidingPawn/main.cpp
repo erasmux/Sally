@@ -11,6 +11,8 @@ int main(int argc, char **argv)
 {
 	using namespace Sally;
 
+	generic_logger::set_active_logger(make_shared<console_logger>());
+
 	try {
 		System::InitGuard initgrd;
 

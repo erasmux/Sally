@@ -7,32 +7,32 @@
 namespace Sally {
 
 	//static
-	Logger Logger::_instance;
+	shared_ptr<generic_logger> generic_logger::_active;
 
-	auto Logger::info() -> Msg
+	auto generic_logger::info() -> message
 	{
 		return msg_with_header("info");
 	}
 	
-	auto Logger::warn() -> Msg
+	auto generic_logger::warn() -> message
 	{
 		return msg_with_header("warn");
 	}
 	
-	auto Logger::error() -> Msg
+	auto generic_logger::error() -> message
 	{
 		return msg_with_header("error");
 	}
 	
-	auto Logger::fatal() -> Msg
+	auto generic_logger::fatal() -> message
 	{
 		return msg_with_header("fatal");
 	}
 
-	auto Logger::msg_with_header(const char* type_) -> Msg
+	auto generic_logger::msg_with_header(const char* type_) -> message
 	{
 		using namespace std;
-		Logger::Msg msg(*this);
+		message msg(*this);
 		time_t t = time(0);
 		struct tm now;
 		SALLY_GMTIME(&t, &now);
@@ -43,12 +43,33 @@ namespace Sally {
 		return msg;
 	}
 
-	void Logger::output(const char* msg_)
+	//static
+	null_logger null_logger::_instance;
+
+	void null_logger::output(const char* msg_)
+	{
+	}
+
+	void null_logger::output(const std::string& msg_)
+	{
+	}
+
+	void stream_logger::output(const char* msg_)
+	{
+		*_os << msg_ << std::endl;
+	}
+
+	void stream_logger::output(const std::string& msg_)
+	{
+		*_os << msg_ << std::endl;
+	}
+
+	void console_logger::output(const char* msg_)
 	{
 		std::cout << msg_ << std::endl;
 	}
 
-	void Logger::output(const std::string& msg_)
+	void console_logger::output(const std::string& msg_)
 	{
 		std::cout << msg_ << std::endl;
 	}

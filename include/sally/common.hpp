@@ -28,12 +28,11 @@
 # define SALLY_GMTIME(timer,res) gmtime_r(timer,res)
 #endif
 
-#define SDL_MAIN_HANDLED
-
 namespace Sally {
 
 	using std::unique_ptr;
 	using std::shared_ptr;
+	using std::make_shared;
 
 	inline size_t strlen_s(const char* str_) { using namespace std;  return str_ ? strlen(str_) : 0; }
 

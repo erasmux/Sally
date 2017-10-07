@@ -105,7 +105,7 @@ namespace Sally {
 
 
 	void debug_sdl_event(const SDL_Event& e, unsigned int user_event_base_, unsigned int user_event_count_) {
-		Logger::Msg msg = logi();
+		auto msg = logi();
 		msg << "event " << std::hex << e.type << std::dec << " : ";
 		switch (e.type) {
 		case SDL_KEYUP:
