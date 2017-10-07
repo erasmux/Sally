@@ -1,3 +1,17 @@
+# Output products
+/lib
+/bin
+
+# Intermidate products
+/build/temp
+
+# Special cases:
+/build/vs2017/dep_Directories.props
+
+# Visual Studio
+.vs
+*.vcxproj.user
+
 # Prerequisites
 *.d
 
