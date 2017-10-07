@@ -15,7 +15,7 @@ namespace Sally {
 	//static
 	EventHandler* System::_event_handler = 0;
 	//static
-	std::string System::_resource_base = "../res/";
+	std::string System::_resource_base = "../../../"; // TODO: This value is good for sally examples but obviously should NOT be hard-coded here!
 	//static
 	unsigned int System::_user_event_base = 0;
 
