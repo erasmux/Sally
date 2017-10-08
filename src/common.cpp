@@ -5,6 +5,8 @@
 
 namespace sally {
 
+	ticks_t clock_tick() { return SDL_GetTicks(); }
+
 	std::string format_error_message(const char* msg_, const char* arg1_, const char* arg2_, const char* arg3_, const char* err_);
 
 	const char* exception::what() const SALLY_NOEXCEPT

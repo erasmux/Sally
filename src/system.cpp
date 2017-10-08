@@ -1,6 +1,6 @@
 #include <sally/system.hpp>
 #include <sally/logger.hpp>
-#include <sally/events.hpp>
+#include <sally/input_events.hpp>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
@@ -13,7 +13,11 @@ namespace sally {
 	//static
 	FontManager System::_font_mgr;
 	//static
-	EventHandler* System::_event_handler = 0;
+	keyboard_event_handler* System::_keyboard_event_handler;
+	//static
+	mouse_button_event_handler* System::_mouse_button_event_handler;
+	//static
+	mouse_motion_event_handler* System::_mouse_motion_event_handler;
 	//static
 	std::string System::_resource_base = "../../../"; // TODO: This value is good for sally examples but obviously should NOT be hard-coded here!
 	//static
@@ -92,14 +96,14 @@ namespace sally {
 	}
 
 	//static
-	bool System::push_event(unsigned int type_delta_, int code_, UserEventBase* uev_, void* udata_)
+	bool System::push_event(unsigned int type_delta_, int code_, void* data1_, void* data2_)
 	{
 		SDL_Event ev;
 		SDL_zero(ev);
 		ev.type = _user_event_base + type_delta_;
 		ev.user.code = code_;
-		ev.user.data1 = uev_;
-		ev.user.data2 = udata_;
+		ev.user.data1 = data1_;
+		ev.user.data2 = data2_;
 		return SDL_PushEvent(&ev) >= 0;
 	}
 
@@ -200,7 +204,7 @@ namespace sally {
 
 			bool quit = ev_.type == SDL_QUIT || SDL_AtomicGet(&system_shutdown_pending) != 0;
 			bool terminate = ev_.type == SDL_APP_TERMINATING;
-			if ((quit || terminate) && (!_event_handler || _event_handler->quit(terminate)))
+			if (quit || terminate)
 			{
 				if (quit)
 					logi() << "received quit request, exiting main loop";
@@ -213,39 +217,55 @@ namespace sally {
 			else if (terminate)
 				logi() << "ignoring terminate request";
 
-			if (_event_handler)
-				switch (ev_.type)
-				{
-				case SDL_WINDOWEVENT:
-					{
-						Window* win = _window_mgr.window_by_id(ev_.window.windowID);
-						if (win && ev_.window.event == SDL_WINDOWEVENT_EXPOSED)
-							win->invalidate();
-						_event_handler->window_event(win, ev_.window);
-					}
-					break;
-				case SDL_KEYDOWN:
-				case SDL_KEYUP:
-					_event_handler->key_event(_window_mgr.window_by_id(ev_.key.windowID), ev_.key);
-					break;
-				case SDL_MOUSEBUTTONDOWN:
-				case SDL_MOUSEBUTTONUP:
-					_event_handler->mouse_button(_window_mgr.window_by_id(ev_.button.windowID), ev_.button);
-					break;
-				case SDL_MOUSEMOTION:
-					_event_handler->mouse_moved(_window_mgr.window_by_id(ev_.motion.windowID), ev_.motion);
-					break;
-				default:
-					if (ev_.type == _user_event_base + FRAME_EVENT_DELTA) {
-						_event_handler->frame_event();
-					}
-					else if (ev_.type == _user_event_base + USER_EVENT_DELTA)
-					{
-						UserEventBase* uev = reinterpret_cast<UserEventBase*>(ev_.user.data1);
-						_event_handler->user_event(ev_.user.code, uev, ev_.user.data2);
-						delete uev;
-					}
-				}
+			switch (ev_.type)
+			{
+			case SDL_KEYDOWN:
+			case SDL_KEYUP:
+				if (_keyboard_event_handler)
+					_keyboard_event_handler->on_key_event(
+						keyboard_event(
+							static_cast<keyboard_event::event_type>(ev_.type),
+							ev_.key.timestamp,
+							ev_.key.repeat,
+							ev_.key.keysym.scancode,
+							ev_.key.keysym.sym,
+							ev_.key.keysym.mod
+						),
+						_window_mgr.window_by_id(ev_.key.windowID)
+					);
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+			case SDL_MOUSEBUTTONUP:
+				if (_mouse_button_event_handler)
+					_mouse_button_event_handler->on_mousebutton__event(
+						mouse_button_event(
+							static_cast<mouse_button_event::event_type>(ev_.type),
+							ev_.button.timestamp,
+							ev_.button.which,
+							static_cast<mouse_button_event::button_type>(ev_.button.button),
+							ev_.button.clicks
+						),
+						_window_mgr.window_by_id(ev_.button.windowID),
+						ev_.button.x,
+						ev_.button.y
+					);
+				break;
+			case SDL_MOUSEMOTION:
+				if (_mouse_motion_event_handler)
+					_mouse_motion_event_handler->on_mouse_motion_event(
+						mouse_motion_event(
+							ev_.motion.timestamp,
+							ev_.motion.which,
+							static_cast<mouse_motion_event::button_mask_type>(ev_.motion.state)
+						),
+						_window_mgr.window_by_id(ev_.motion.windowID),
+						ev_.motion.x,
+						ev_.motion.y,
+						ev_.motion.xrel,
+						ev_.motion.yrel
+					);
+				break;
+			}
 		}
 		catch (sally::exception& e) {
 			loge() << typeid(e).name() << " while hanlding event type " << ev_.type

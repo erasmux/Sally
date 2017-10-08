@@ -1,8 +1,9 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <cstring>
-#include <memory>
+#include <cstdint>
 
 #ifdef _WIN32
 # define SALLY_WINDOWS
@@ -33,6 +34,21 @@ namespace sally {
 	using std::unique_ptr;
 	using std::shared_ptr;
 	using std::make_shared;
+
+	using std::int8_t;
+	using std::int16_t;
+	using std::int32_t;
+	using std::int64_t;
+	using std::uint8_t;
+	using std::uint16_t;
+	using std::uint32_t;
+	using std::uint64_t;
+
+	typedef int scalar;
+	typedef uint32_t ticks_t;
+
+	// returns time in ms since sally initialized
+	ticks_t clock_tick();
 
 	inline size_t strlen_s(const char* str_) { using namespace std;  return str_ ? strlen(str_) : 0; }
 

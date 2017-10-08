@@ -2,7 +2,7 @@
 
 #include <sally/sally.hpp>
 
-class sliding_pawn : public sally::EventHandler, public sally::RenderProvider
+class sliding_pawn : public sally::keyboard_event_handler, public sally::RenderProvider
 {
 public:
 	enum { BOARD_WIDTH = 8, BOARD_HEIGHT = 8 };
@@ -42,10 +42,10 @@ public:
 		logi() << "<< rending scene done.";
 	}
 
-	virtual void key_event(sally::Window* win_, const SDL_KeyboardEvent& ev_) {
+	virtual void on_key_event(const sally::keyboard_event& event_, sally::Window* win_) {
 		int oldpx = _px, oldpy = _py;
-		if (ev_.state == SDL_PRESSED)
-			switch (ev_.keysym.sym) {
+		if (event_._type == sally::keyboard_event::KEY_PRESSED)
+			switch (event_._keycode) {
 			case SDLK_KP_8:
 			case SDLK_UP:
 				_py = inc(_py, -1, 0, BOARD_HEIGHT);
