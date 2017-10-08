@@ -13,7 +13,7 @@ struct SDL_Renderer;
 struct SDL_Texture;
 struct SDL_Rect;
 
-namespace Sally {
+namespace sally {
 
 	struct Color
 	{
@@ -138,16 +138,16 @@ namespace Sally {
 
 		// when seting text, width and height will update only on next render
 		void set_text(const std::string& utf8_) {
-			Spinlock::Guard lg(_lock);
+			spinlock::Guard lg(_lock);
 			if (_text != utf8_) { _text = utf8_; SDL_AtomicSet(&_cached, 0); }
 		}
-		std::string get_text() const { Spinlock::Guard lg(_lock);  return _text; }
+		std::string get_text() const { spinlock::Guard lg(_lock);  return _text; }
 
 		void set_color(const Color& color_) {
-			Spinlock::Guard lg(_lock);
+			spinlock::Guard lg(_lock);
 			if (memcmp(&_color,&color_,sizeof(Color))!=0) { _color = color_; SDL_AtomicSet(&_cached, 0); }
 		}
-		Color get_color() const { Spinlock::Guard lg(_lock);  return _color; }
+		Color get_color() const { spinlock::Guard lg(_lock);  return _color; }
 
 		// cache and release texture should only be called from main thread
 		void cache_texture(Renderer& render_);
@@ -162,7 +162,7 @@ namespace Sally {
 		std::string _text;
 		Color _color;
 		SDL_atomic_t _cached;
-		mutable Spinlock _lock;
+		mutable spinlock _lock;
 	};
 
 	class Renderer { // only exists within a Window context
@@ -178,18 +178,18 @@ namespace Sally {
 		// renderable_ will be deleted by this object; replaces existing values
 		template<typename R>
 		R* insert(const std::string& name_, R* renderable_) {
-			Spinlock::Guard lg(_lock);
+			spinlock::Guard lg(_lock);
 			_map[name_].reset(renderable_);
 			return renderable_;
 		}
 
 		void erase(const std::string& name_) {
-			Spinlock::Guard lg(_lock);
+			spinlock::Guard lg(_lock);
 			_map.erase(name_);
 		}
 
 		Renderable* lookup(const std::string& name_) {
-			Spinlock::Guard lg(_lock);
+			spinlock::Guard lg(_lock);
 			auto find_it = _map.find(name_);
 			return find_it != _map.end() ? find_it->second.get() : nullptr;
 		}
@@ -233,7 +233,7 @@ namespace Sally {
 		SDL_Texture* image_from_file(const std::string& filepath_);
 
 		std::unordered_map<std::string, unique_ptr<Renderable> > _map;
-		mutable Spinlock _lock;
+		mutable spinlock _lock;
 	};
 
 	class RenderProvider {
@@ -242,12 +242,12 @@ namespace Sally {
 		virtual void render(Window& win_) = 0;
 		virtual ~RenderProvider() = default;
 
-		typedef GenericGuard<const RenderProvider> Guard;
+		typedef generic_guard<const RenderProvider> Guard;
 		void lock() const { _mutex.lock(); }
 		void unlock() const { _mutex.unlock();  }
 		bool try_lock() const { return _mutex.try_lock(); }
 	private:
-		mutable Mutex _mutex;
+		mutable mutex _mutex;
 	};
 
 	// windows + rendering tasks should only be done from main thread.

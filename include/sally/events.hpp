@@ -3,7 +3,7 @@
 #include <sally/common.hpp>
 #include <SDL_events.h>
 
-namespace Sally {
+namespace sally {
 
 	class Window;
 

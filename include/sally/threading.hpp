@@ -5,16 +5,16 @@
 
 struct SDL_mutex;
 
-namespace Sally {
+namespace sally {
 
 	template<typename Lock>
-	class GenericGuard {
+	class generic_guard {
 	public:
-		GenericGuard(Lock& lock_, bool initially_locked_=true)
+		generic_guard(Lock& lock_, bool initially_locked_=true)
 			: _lock(lock_), _locked(initially_locked_)
 		{ if (initially_locked_) _lock.lock(); }
 
-		~GenericGuard() { if (_locked) _lock.unlock();  }
+		~generic_guard() { if (_locked) _lock.unlock();  }
 
 		void lock() { if (!_locked) { _lock.lock(); _locked = true; } }
 		void unlock() { if (_locked) { _lock.unlock(); _locked = false; } }
@@ -24,12 +24,12 @@ namespace Sally {
 		bool _locked;
 	};
 
-	class Mutex {
+	class mutex {
 	public:
-		typedef GenericGuard<Mutex> Guard;
+		typedef generic_guard<mutex> Guard;
 
-		Mutex();
-		~Mutex();
+		mutex();
+		~mutex();
 
 		void lock();
 		void unlock();
@@ -39,11 +39,11 @@ namespace Sally {
 		SDL_mutex* _mutex;
 	};
 
-	class Spinlock {
+	class spinlock {
 	public:
-		typedef GenericGuard<Spinlock> Guard;
+		typedef generic_guard<spinlock> Guard;
 
-		Spinlock() { memset(&_lock, 0, sizeof(_lock)); }
+		spinlock() { memset(&_lock, 0, sizeof(_lock)); }
 
 		void lock() { SDL_AtomicLock(&_lock); }
 		void unlock() { SDL_AtomicUnlock(&_lock); }

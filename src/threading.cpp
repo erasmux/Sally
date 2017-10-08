@@ -3,34 +3,34 @@
 #include <sally/threading.hpp>
 #include <SDL_mutex.h>
 
-namespace Sally {
+namespace sally {
 
 	// Mutex:
 
-	Mutex::Mutex() : _mutex(SDL_CreateMutex())
+	mutex::mutex() : _mutex(SDL_CreateMutex())
 	{
 		if (!_mutex)
 			throw sdl_exception("SDL_CreateMutex failed");
 	}
 
-	Mutex::~Mutex()
+	mutex::~mutex()
 	{
 		SDL_DestroyMutex(_mutex);
 	}
 
-	void Mutex::lock()
+	void mutex::lock()
 	{
 		if (SDL_LockMutex(_mutex) != 0)
 			throw sdl_exception("SDL_LockMutex failed");
 	}
 
-	void Mutex::unlock()
+	void mutex::unlock()
 	{
 		if (SDL_UnlockMutex(_mutex) != 0)
 			throw sdl_exception("SDL_UnlockMutex failed");
 	}
 	
-	bool Mutex::try_lock()
+	bool mutex::try_lock()
 	{
 		int s = SDL_TryLockMutex(_mutex);
 		if (s == 0)

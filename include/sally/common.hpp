@@ -28,7 +28,7 @@
 # define SALLY_GMTIME(timer,res) gmtime_r(timer,res)
 #endif
 
-namespace Sally {
+namespace sally {
 
 	using std::unique_ptr;
 	using std::shared_ptr;

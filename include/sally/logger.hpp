@@ -4,7 +4,7 @@
 #include <ostream>
 #include <sstream>
 
-namespace Sally {
+namespace sally {
 
 	class generic_logger {
 	public:

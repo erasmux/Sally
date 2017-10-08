@@ -6,7 +6,7 @@
 #include <SDL_ttf.h>
 #include <iomanip>
 
-namespace Sally {
+namespace sally {
 
 	//static
 	WindowManager System::_window_mgr;
@@ -247,7 +247,7 @@ namespace Sally {
 					}
 				}
 		}
-		catch (Sally::exception& e) {
+		catch (sally::exception& e) {
 			loge() << typeid(e).name() << " while hanlding event type " << ev_.type
 				<< " : " << e.what();
 		}

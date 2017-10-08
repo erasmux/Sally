@@ -2,7 +2,7 @@
 
 #include <sally/sally.hpp>
 
-class SlidingPawn : public Sally::EventHandler, public Sally::RenderProvider
+class sliding_pawn : public sally::EventHandler, public sally::RenderProvider
 {
 public:
 	enum { BOARD_WIDTH = 8, BOARD_HEIGHT = 8 };
@@ -10,18 +10,18 @@ public:
 	enum { TILE_WIDTH = 64, TILE_HEIGHT = 64 };
 	enum { WINDOW_WIDTH = BOARD_WIDTH*TILE_WIDTH, WINDOW_HEIGHT = BOARD_HEIGHT*TILE_HEIGHT };
 
-	SlidingPawn() : _px(3), _py(6) {}
+	sliding_pawn() : _px(3), _py(6) {}
 
-	virtual void initialize(Sally::Window& win_) {
-		using namespace Sally;
+	virtual void initialize(sally::Window& win_) {
+		using namespace sally;
 		win_.renderer().load_image("pawn", System::resouce_path("examples/SlidingPawn/chess_pawn.png"));
 	}
 
-	virtual void render(Sally::Window& win_) {
-		using namespace Sally;
+	virtual void render(sally::Window& win_) {
+		using namespace sally;
 
-		static const Sally::Color white{ 255, 255, 255 };
-		static const Sally::Color black{   0,   0,   0 };
+		static const sally::Color white{ 255, 255, 255 };
+		static const sally::Color black{   0,   0,   0 };
 
 		logi() << ">> rending scene ...";
 
@@ -42,7 +42,7 @@ public:
 		logi() << "<< rending scene done.";
 	}
 
-	virtual void key_event(Sally::Window* win_, const SDL_KeyboardEvent& ev_) {
+	virtual void key_event(sally::Window* win_, const SDL_KeyboardEvent& ev_) {
 		int oldpx = _px, oldpy = _py;
 		if (ev_.state == SDL_PRESSED)
 			switch (ev_.keysym.sym) {
@@ -63,14 +63,14 @@ public:
 				_px = inc(_px, +1, 0, BOARD_WIDTH);
 				break;
 			case SDLK_ESCAPE:
-				Sally::System::request_shutdown();
+				sally::System::request_shutdown();
 				break;
 			}
 		if (_px != oldpx || _py != oldpy)
 			if (win_)
 				win_->invalidate();
 			else
-				Sally::loge() << "key event with no window?!";
+				sally::loge() << "key event with no window?!";
 	}
 
 private:

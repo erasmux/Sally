@@ -3,7 +3,7 @@
 #include <sally/common.hpp>
 #include <sally/gfx.hpp>
 
-namespace Sally {
+namespace sally {
 
 	class EventHandler;
 	class UserEventBase;

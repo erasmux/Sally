@@ -6,7 +6,7 @@
 #include <sstream>
 #include <algorithm>
 
-namespace Sally {
+namespace sally {
 
 	// Font:
 
@@ -86,7 +86,7 @@ namespace Sally {
 	{
 		if (SDL_AtomicGet(&_cached))
 			return;
-		Spinlock::Guard lg(_lock);
+		spinlock::Guard lg(_lock);
 		std::string text = _text;
 		Color color = _color;
 		SDL_AtomicSet(&_cached, 1);

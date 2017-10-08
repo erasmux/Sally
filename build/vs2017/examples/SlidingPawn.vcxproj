@@ -141,7 +141,7 @@
     <ClCompile Include="..\..\..\examples\SlidingPawn\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\examples\SlidingPawn\SlidingPawn.hpp" />
+    <ClInclude Include="..\..\..\examples\SlidingPawn\sliding_pawn.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

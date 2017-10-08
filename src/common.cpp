@@ -3,7 +3,7 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
-namespace Sally {
+namespace sally {
 
 	std::string format_error_message(const char* msg_, const char* arg1_, const char* arg2_, const char* arg3_, const char* err_);
 

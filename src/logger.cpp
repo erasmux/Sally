@@ -4,7 +4,7 @@
 #include <cstdio>
 #include <SDL.h>
 
-namespace Sally {
+namespace sally {
 
 	//static
 	shared_ptr<generic_logger> generic_logger::_active;

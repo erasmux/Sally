@@ -25,7 +25,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\examples\SlidingPawn\SlidingPawn.hpp">
+    <ClInclude Include="..\..\..\examples\SlidingPawn\sliding_pawn.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
