@@ -9,6 +9,12 @@ namespace sally {
 	class mouse_button_event_handler;
 	class mouse_motion_event_handler;
 
+	class step_event_handler {
+	public:
+		virtual void on_step_event() = 0;
+		virtual ~step_event_handler() = default;
+	};
+
 	class System {
 	public:
 		class InitGuard {
@@ -29,22 +35,30 @@ namespace sally {
 		static void request_shutdown();
 		static void request_render();
 
+		// the step event is called right before rendering a frame
+		static step_event_handler* set_step_event_handler(step_event_handler* handler_) {
+			// assumes will not be called concurrently from different threads
+			step_event_handler* old_handler = _step_event_handler;
+			_step_event_handler = handler_;
+			return old_handler;
+		}
+
 		static keyboard_event_handler* set_keyboard_event_handler(keyboard_event_handler* handler_) {
-			// assumes will only be called by main thread
+			// assumes will not be called concurrently from different threads
 			keyboard_event_handler* old_handler = _keyboard_event_handler;
 			_keyboard_event_handler = handler_;
 			return old_handler;
 		}
 
 		static mouse_button_event_handler* set_mouse_button_event_handler(mouse_button_event_handler* handler_) {
-			// assumes will only be called by main thread
+			// assumes will not be called concurrently from different threads
 			mouse_button_event_handler* old_handler = _mouse_button_event_handler;
 			_mouse_button_event_handler = handler_;
 			return old_handler;
 		}
 
 		static mouse_motion_event_handler* set_mouse_motion_event_handler(mouse_motion_event_handler* handler_) {
-			// assumes will only be called by main thread
+			// assumes will not be called concurrently from different threads
 			mouse_motion_event_handler* old_handler = _mouse_motion_event_handler;
 			_mouse_motion_event_handler = handler_;
 			return old_handler;
@@ -68,6 +82,7 @@ namespace sally {
 
 		static WindowManager _window_mgr;
 		static FontManager _font_mgr;
+		static step_event_handler* _step_event_handler;
 		static keyboard_event_handler* _keyboard_event_handler;
 		static mouse_button_event_handler* _mouse_button_event_handler;
 		static mouse_motion_event_handler* _mouse_motion_event_handler;

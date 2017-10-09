@@ -13,6 +13,8 @@ namespace sally {
 	//static
 	FontManager System::_font_mgr;
 	//static
+	step_event_handler* System::_step_event_handler;
+	//static
 	keyboard_event_handler* System::_keyboard_event_handler;
 	//static
 	mouse_button_event_handler* System::_mouse_button_event_handler;
@@ -179,12 +181,9 @@ namespace sally {
 			while (!quit && SDL_PollEvent(&ev))
 				quit = handle_event(ev);
 
-			// right before drawing a frame generate a frame event (notice no need to push this into the SDL queue):
-			if (!quit) {
-				SDL_zero(ev);
-				ev.type = _user_event_base + FRAME_EVENT_DELTA;
-				quit = handle_event(ev);
-			}
+			// right before drawing a frame generate a step event
+			if (!quit && _step_event_handler)
+				_step_event_handler->on_step_event();
 
 			if (!quit) {
 				// finally draw whatever is needed:

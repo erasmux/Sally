@@ -18,6 +18,7 @@ int main(int argc, char **argv)
 
 		sliding_pawn scen;
 		Window win("Sliding Pawn", sliding_pawn::WINDOW_WIDTH, sliding_pawn::WINDOW_HEIGHT, 0, &scen);
+		System::set_step_event_handler(&scen);
 		System::set_keyboard_event_handler(&scen);
 		System::main_loop();
 		System::set_keyboard_event_handler(nullptr);
