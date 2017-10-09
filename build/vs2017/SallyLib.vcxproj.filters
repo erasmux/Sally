@@ -19,17 +19,23 @@
     <Filter Include="Header Files\gfx">
       <UniqueIdentifier>{f8444c96-2335-4e70-b79f-0f4bf2d1c608}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\gfx">
-      <UniqueIdentifier>{217f8b8e-ed78-4597-abff-3442094fd1f0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\input">
       <UniqueIdentifier>{6a5dab02-1dbf-4003-b875-96de177e6855}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\util">
       <UniqueIdentifier>{c200b44b-0439-4323-8120-764a541612bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\assets">
+      <UniqueIdentifier>{bdc13d12-e489-415d-a262-7c6a3ae7504b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gfx">
+      <UniqueIdentifier>{50458053-7d1e-4364-9e81-4f81f7032f5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\input">
+      <UniqueIdentifier>{5bc692cf-e7ec-4a16-b34b-26a375a729b6}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\util">
-      <UniqueIdentifier>{3fe5bd43-dd6b-4b25-a0b0-f6b3f9ad071b}</UniqueIdentifier>
+      <UniqueIdentifier>{ff9e4901-0619-4b68-969b-1c2b9c2fbca4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -42,14 +48,20 @@
     <ClCompile Include="..\..\src\system.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\gfx\basics.cpp">
-      <Filter>Source Files\gfx</Filter>
+    <ClCompile Include="..\..\src\assets\font.cpp">
+      <Filter>Source Files\assets</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\util\logger.cpp">
       <Filter>Source Files\util</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\util\threading.cpp">
       <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gfx\basics.cpp">
+      <Filter>Source Files\gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\assets\texture.cpp">
+      <Filter>Source Files\assets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +88,12 @@
     </ClInclude>
     <ClInclude Include="..\..\include\sally\util\threading.hpp">
       <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sally\assets\font.hpp">
+      <Filter>Header Files\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\sally\assets\texture.hpp">
+      <Filter>Header Files\assets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

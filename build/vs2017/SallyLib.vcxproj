@@ -138,6 +138,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\assets\font.cpp" />
+    <ClCompile Include="..\..\src\assets\texture.cpp" />
     <ClCompile Include="..\..\src\common.cpp" />
     <ClCompile Include="..\..\src\gfx.cpp" />
     <ClCompile Include="..\..\src\gfx\basics.cpp" />
@@ -146,6 +148,8 @@
     <ClCompile Include="..\..\src\util\threading.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\sally\assets\font.hpp" />
+    <ClInclude Include="..\..\include\sally\assets\texture.hpp" />
     <ClInclude Include="..\..\include\sally\common.hpp" />
     <ClInclude Include="..\..\include\sally\gfx.hpp" />
     <ClInclude Include="..\..\include\sally\gfx\basics.hpp" />
