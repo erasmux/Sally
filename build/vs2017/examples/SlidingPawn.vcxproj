@@ -143,6 +143,9 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\examples\SlidingPawn\sliding_pawn.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\..\..\examples\SlidingPawn\sample.ttf" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
