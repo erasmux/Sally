@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sally/threading.hpp>
+#include <sally/util/threading.hpp>
 #include <SDL_mutex.h>
 
 namespace sally {

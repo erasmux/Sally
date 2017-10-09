@@ -1,5 +1,5 @@
 #include <sally/gfx.hpp>
-#include <sally/logger.hpp>
+#include <sally/util/logger.hpp>
 #include <sally/system.hpp>
 #include <SDL.h>
 #include <SDL_image.h>

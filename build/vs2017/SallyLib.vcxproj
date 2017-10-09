@@ -140,18 +140,20 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\common.cpp" />
     <ClCompile Include="..\..\src\gfx.cpp" />
-    <ClCompile Include="..\..\src\logger.cpp" />
+    <ClCompile Include="..\..\src\gfx\basics.cpp" />
     <ClCompile Include="..\..\src\system.cpp" />
-    <ClCompile Include="..\..\src\threading.cpp" />
+    <ClCompile Include="..\..\src\util\logger.cpp" />
+    <ClCompile Include="..\..\src\util\threading.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\sally\common.hpp" />
-    <ClInclude Include="..\..\include\sally\input_events.hpp" />
     <ClInclude Include="..\..\include\sally\gfx.hpp" />
-    <ClInclude Include="..\..\include\sally\logger.hpp" />
+    <ClInclude Include="..\..\include\sally\gfx\basics.hpp" />
+    <ClInclude Include="..\..\include\sally\input\input_events.hpp" />
     <ClInclude Include="..\..\include\sally\sally.hpp" />
     <ClInclude Include="..\..\include\sally\system.hpp" />
-    <ClInclude Include="..\..\include\sally\threading.hpp" />
+    <ClInclude Include="..\..\include\sally\util\logger.hpp" />
+    <ClInclude Include="..\..\include\sally\util\threading.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,6 +1,6 @@
 #include <sally/system.hpp>
-#include <sally/logger.hpp>
-#include <sally/input_events.hpp>
+#include <sally/util/logger.hpp>
+#include <sally/input/input_events.hpp>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>

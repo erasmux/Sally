@@ -1,7 +1,7 @@
 #pragma once
 
 #include <sally/common.hpp>
-#include <sally/threading.hpp>
+#include <sally/util/threading.hpp>
 #include <vector>
 #include <unordered_map>
 #include <SDL_atomic.h>
