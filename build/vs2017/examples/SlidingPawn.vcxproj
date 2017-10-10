@@ -135,9 +135,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Image Include="..\..\..\examples\SlidingPawn\chess_pawn.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\..\..\examples\SlidingPawn\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +142,10 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="..\..\..\examples\SlidingPawn\sample.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\examples\SlidingPawn\black_pawn.png" />
+    <Image Include="..\..\..\examples\SlidingPawn\white_pawn.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

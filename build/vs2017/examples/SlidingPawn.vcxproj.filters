@@ -15,11 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\examples\SlidingPawn\chess_pawn.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\..\..\examples\SlidingPawn\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -33,5 +28,13 @@
     <Font Include="..\..\..\examples\SlidingPawn\sample.ttf">
       <Filter>Resource Files</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\examples\SlidingPawn\black_pawn.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\..\examples\SlidingPawn\white_pawn.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
